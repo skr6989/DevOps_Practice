@@ -130,4 +130,4 @@ Step 7: Cleanup
 Conclusion
 
 You've successfully created a real-time Python web application using Flask on an EC2 instance,
-and you learned how to create a custom AMI to replicate this setup easily.
+and you learned how to create a custom AMI to replicate this setup easily...
