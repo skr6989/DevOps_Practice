@@ -69,133 +69,9 @@ Step 3: Mount EFS on the EC2 Instances
    ```
    ![Preview](./images/ef3.png)
 
-Step 4: Set Up the Node.js Application
 
-1. **Install Node.js and NPM:**
-   ```bash
-   sudo yum install -y nodejs npm
-   ```
-
-2. **Create a New Directory for Your Project:**
-   ```bash
-   mkdir /mnt/efs/chat-app
-   cd /mnt/efs/chat-app
-   ```
-
-3. **Initialize a New Node.js Project:**
-   ```bash
-   npm init -y
-   ```
-
-4. **Install Required Packages:**
-   ```bash
-   npm install express ws body-parser
-   ```
 ![Preview](./images/ef4.png)
-5. **Create the Server:**
-   - Create a file named `server.js`:
-     ```javascript
-     const express = require('express');
-     const WebSocket = require('ws');
-     const bodyParser = require('body-parser');
-     const fs = require('fs');
-     const path = require('path');
 
-     const app = express();
-     const server = require('http').createServer(app);
-     const wss = new WebSocket.Server({ server });
-
-     const DATA_FILE = '/mnt/efs/messages.txt'; // EFS file path
-
-     app.use(bodyParser.json());
-     app.use(express.static('public'));
-
-     app.get('/messages', (req, res) => {
-         fs.readFile(DATA_FILE, 'utf8', (err, data) => {
-             if (err) return res.status(500).send('Error reading messages');
-             res.send(data);
-         });
-     });
-
-     wss.on('connection', (ws) => {
-         console.log('New client connected');
-
-         ws.on('message', (message) => {
-             console.log(`Received: ${message}`);
-             fs.appendFile(DATA_FILE, message + '\n', (err) => {
-                 if (err) console.error('Error saving message:', err);
-             });
-
-             // Broadcast the message to all connected clients
-             wss.clients.forEach((client) => {
-                 if (client.readyState === WebSocket.OPEN) {
-                     client.send(message);
-                 }
-             });
-         });
-
-         ws.on('close', () => {
-             console.log('Client disconnected');
-         });
-     });
-
-     const PORT = process.env.PORT || 3000;
-     server.listen(PORT, () => {
-         console.log(`Server is running on port ${PORT}`);
-     });
-     ```
-
-6. **Create a Simple HTML Client:**
-   - Create a directory named `public`, and inside it create an `index.html` file:
-     ```html
-     <!DOCTYPE html>
-     <html>
-     <head>
-         <title>Real-Time Chat</title>
-         <style>
-             body { font-family: Arial, sans-serif; }
-             #messages { border: 1px solid #ccc; height: 300px; overflow-y: scroll; }
-         </style>
-     </head>
-     <body>
-         <h1>Chat Room</h1>
-         <div id="messages"></div>
-         <input type="text" id="message" placeholder="Type a message..." />
-         <button id="send">Send</button>
-
-         <script>
-             const ws = new WebSocket('ws://' + window.location.host);
-             const messagesDiv = document.getElementById('messages');
-             const messageInput = document.getElementById('message');
-
-             ws.onmessage = function(event) {
-                 const message = document.createElement('div');
-                 message.textContent = event.data;
-                 messagesDiv.appendChild(message);
-             };
-
-             document.getElementById('send').onclick = function() {
-                 const message = messageInput.value;
-                 ws.send(message);
-                 messageInput.value = '';
-             };
-         </script>
-     </body>
-     </html>
-     ```
-Step 5: Run Your Application
-
-1. **Start the Server:**
-   ```bash
-   node server.js
-   ```
-
-2. **Access Your Application:**
-   - Open a web browser and navigate to `http://your-instance-public-dns:3000`.
-
-Step 6: (Optional) Setup Auto Scaling
-
-If you want to deploy this application across multiple EC2 instances, you can set up an **Auto Scaling Group** and a **Load Balancer** through the EC2 console or using CloudFormation.
 ![Preview](./images/ef5.png)
 
 ![Preview](./images/ef6.png)
@@ -209,7 +85,7 @@ If you want to deploy this application across multiple EC2 instances, you can se
 ![Preview](./images/ef10.png)
 
 
-Step 7: Cleanup
+Step 4: Cleanup
 
 When you are done with your project, remember to terminate your EC2 instances and delete the EFS to avoid unnecessary charges.
 
