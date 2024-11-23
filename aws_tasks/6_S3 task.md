@@ -1,9 +1,3 @@
-Real-World Example
-
-
-Imagine a scenario where a media company needs to store high-resolution images and video content. The images/ folder is used for frequently accessed images, while videos/ are archived after a certain period. Content must be stored securely, with only authorized users able to access and manage files, while older files are automatically archived for cost efficiency.
-
-
 Task Overview
 
 
@@ -13,18 +7,12 @@ Participants will create an S3-based solution to store, organize, manage, and ar
 Objectives
 
 
-Gain practical experience with S3 bucket creation, object storage, versioning, and lifecycle policies.
-
-Learn to secure data using bucket policies, encryption, and access control lists (ACLs).
-
-Understand cost optimization through storage class transitions and lifecycle management.
-
+Gain practical experience with S3 bucket creation, object storage, versioning, and lifecycle policies.     
+Learn to secure data using bucket policies, encryption, and access control lists (ACLs).       
+Understand cost optimization through storage class transitions and lifecycle management    
 Use S3 event notifications to simulate file management automation.
 
-
 Step-by-Step Task Instructions
-
-
 
 1.Create an S3 Bucket with Appropriate Naming and Versioning
 Create a new S3 bucket named multimedia-storage-[yourname]-bucket.
