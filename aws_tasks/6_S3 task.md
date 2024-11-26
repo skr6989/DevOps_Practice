@@ -79,4 +79,20 @@ Upload and delete files in the bucket, observing notifications for each action.
 Set up Cross-Region Replication (CRR) to duplicate data from your primary bucket to a secondary bucket in another AWS region.
 
 Make sure versioning is enabled on both buckets and create IAM policies that permit replication.
-oTest the replication by uploading files to the primary bucket and verifying their presence in the secondary bucket.
+Test the replication by uploading files to the primary bucket and verifying their presence in the secondary bucket.
+
+![preview](./images/s8.png)
+
+![preview](./images/s9.png)
+
+![preview](./images/s10.png)
+
+![preview](./images/s11.png)
+
+![preview](./images/s12.png)
+
+![preview](./images/s13.png)
+
+![preview](./images/s14.png)
+
+![preview](./images/s15.png)
